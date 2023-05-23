@@ -1,0 +1,19 @@
+use CarDb
+CREATE TABLE Brands(
+	brandID int NOT NULL CONSTRAINT pk_brandId PRIMARY KEY (brandID),
+	brandName nvarchar(69),
+);
+
+CREATE TABLE Colors(
+	colorID int NOT NULL CONSTRAINT pk_colorId PRIMARY KEY (colorID),
+	colorName nvarchar(15),
+);
+
+CREATE TABLE Cars (
+	carID int NOT NULL CONSTRAINT pk_ID PRIMARY KEY (carID),
+	brandID int CONSTRAINT fk_brandId FOREIGN KEY (brandID) REFERENCES Brands(brandID),
+	colorID int CONSTRAINT fk_colorId FOREIGN KEY (colorID) REFERENCES Colors(colorID),
+	modelYear int,
+	dailyPrice decimal CONSTRAINT ck_price CHECK (dailyPrice > 0),
+	descriptions nvarchar(200) CONSTRAINT ck_desc CHECK (len(descriptions) >= 2)
+);
